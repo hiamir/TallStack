@@ -25,8 +25,8 @@ module.exports = {
         },
     },
 
-
-    plugins: [require('@tailwindcss/forms')][require("kutty")],
+    // [require('@tailwindcss/forms')]
+    plugins: [require("kutty")],
 
 
 };
