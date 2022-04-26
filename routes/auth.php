@@ -16,8 +16,11 @@ Route::middleware('guest')->group(function () {
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
-                ->name('login');
+//    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+//                ->name('login');
+
+
+    Route::get('login', \App\Http\Livewire\Auth\Login::class) ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
