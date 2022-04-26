@@ -1,10 +1,7 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/" title="OMJ Task Manager" class="flex items-center justify-start sm:justify-center">
-                <img src="{{asset('storage/images/logo-circle.svg')}}" alt="OMJ" class="w-20"/>
-                <span class="sr-only">OMJ Manager</span>
-            </a>
+            <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
         </x-slot>
 
         <h1 class="mb-5 text-xl font-light text-left text-gray-800 sm:text-center">Log in to your account</h1>
@@ -52,20 +49,13 @@
         <x-slot name="help">
             <p class="mt-4 mb-4 space-y-2 text-sm text-left text-gray-600 sm:text-center sm:space-y-0">
                 @if (Route::has('password.request'))
-                    <a class="w-full btn btn-sm btn-link sm:w-auto" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
+                    <x-button-link href="{{ route('password.request') }}"> {{ __('Forgot your password?') }}</x-button-link>
                 @endif
-                @if (Route::has('password.request'))
-                    <a class="w-full btn btn-sm btn-link sm:w-auto" href="{{ route('register') }}">
-                        {{ __('Create an account') }}
-                    </a>
+                @if (Route::has('register'))
+                        <x-button-link href="{{ route('register') }}"> {{ __('Create an account') }}</x-button-link>
                 @endif
             </p>
         </x-slot>
     </x-auth-card>
-    <p class="mb-4 space-y-2 text-sm text-left text-gray-600 sm:text-center sm:space-y-0">
-        <a href="#" class="w-full btn btn-sm btn-link sm:w-auto">Forgot password</a>
-        <a href="#" class="w-full btn btn-sm btn-link sm:w-auto">Create an account</a>
-    </p>
+
 </x-guest-layout>

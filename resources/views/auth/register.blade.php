@@ -46,14 +46,20 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
                 <x-button class="ml-4">
                     {{ __('Register') }}
                 </x-button>
             </div>
         </form>
+        <x-slot name="help">
+            <p class="mt-4 mb-4 space-y-2 text-sm text-left text-gray-600 sm:text-center sm:space-y-0">
+                @if (Route::has('password.request'))
+                    <x-button-link href="{{ route('password.request') }}"> {{ __('Forgot your password?') }}</x-button-link>
+                @endif
+                @if (Route::has('login'))
+                    <x-button-link href="{{ route('login') }}"> {{ __('Already have an account!') }}</x-button-link>
+                @endif
+            </p>
+        </x-slot>
     </x-auth-card>
 </x-guest-layout>
