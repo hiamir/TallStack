@@ -57,8 +57,12 @@ class Login extends Component
             Cookie::queue(Cookie::forget('auth-email'));
             Cookie::queue(Cookie::forget('auth-password'));
         }
+        if (Auth::user()->hasRole('admin')) {
+            return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+        }  else {
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
 
-        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     public function ensureIsNotRateLimited()

@@ -1,10 +1,13 @@
 <section class="min-h-screen bg-gray-50" x-data="{ sideBar: false }">
     <nav
-        class="fixed top-0 left-0 z-20 h-full w-full pb-10 overflow-x-hidden overflow-y-auto transition origin-left transform bg-gray-900 w-60 md:translate-x-0"
+        class="fixed top-0 left-0 z-20 h-full w-full pb-10 overflow-x-hidden overflow-y-auto transition origin-left transform
+        @if(auth()->user()->hasRole('admin')) bg-gray-900 @else  bg-zinc-900  @endif
+        w-60 md:translate-x-0"
         :class="{ '-translate-x-full' : !sideBar, 'translate-x-0' : sideBar }" @click.away="sideBar = false">
-        <a href="{{route('welcome')}}" class="flex items-center px-4 py-5 text-center">
-            <img src="{{asset('storage/images/logo-circle.svg')}}" alt="OMJ" class="w-20" />
+        <a href="{{route('welcome')}}" class="flex items-center px-4 py-5 pb-2 text-center justify-center border-b-[1px] border-gray-700 mb-4 pb-4 ">
+            <img class="w-20" src="{{asset('storage/images/logo-circle.svg')}}" alt="OMJ" />
         </a>
+
         <nav class="text-sm font-medium text-gray-500" aria-label="Main Navigation">
             <a class="flex items-center px-4 py-3 transition cursor-pointer group hover:bg-gray-800 hover:text-gray-200"
                href="#">
@@ -98,25 +101,23 @@
         </nav>
     </nav>
     <div class="ml-0 transition md:ml-60">
-        <header class="flex items-center justify-between w-full h-14">
 
-            <button class="block btn btn-light-secondary md:hidden absolute " @click.stop="sideBar = true">
+
+            <button class="block btn bg-none md:hidden absolute m-0" @click.stop="sideBar = true">
                 <span class="sr-only">Menu</span>
-                <svg class="w-6 h-6  ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="w-7 h-7  ml-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                           d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
                           clip-rule="evenodd" />
                 </svg>
             </button>
 
-            @include('layouts.navigation')
-        </header>
-        <div class="p-4">
 
             <main>
+
                 {{ $slot }}
             </main>
-        </div>
+
     </div>
 
     <!-- Sidebar Backdrop -->

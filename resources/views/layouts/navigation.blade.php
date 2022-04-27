@@ -3,18 +3,47 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20">
             <div class="flex">
-                <!-- Logo -->
-            {{--                <div class="shrink-0 flex items-center">--}}
-            {{--                    <a href="{{ route('dashboard') }}">--}}
-            {{--                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />--}}
-            {{--                    </a>--}}
-            {{--                </div>--}}
 
             <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-0 sm:flex pt-2">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                        @foreach(auth()->user()->roles as $role)
+
+                            @switch($role->name)
+                                @case('admin')
+                                    <x-nav-link :href="route('auth.admin.dashboard')" :active="request()->routeIs('auth.admin.dashboard')">
+                                        {{ __('Administrator') }}
+                                    </x-nav-link>
+                                @break;
+
+                                @case('manager')
+                            @if($active_role=='manager')
+                                <x-nav-link :href="route('auth.dashboard')"  :active="request()->routeIs('auth.dashboard')" >
+                                    {{ __('Manager') }}
+                                </x-nav-link>
+                            @else
+                                <x-nav-link :href="route('auth.dashboard')"   >
+                                    {{ __('Manager') }}
+                                </x-nav-link>
+                            @endif
+
+                                @break;
+
+                                @case('user')
+                            @if($active_role=='user')
+                                <x-nav-link :href="route('auth.dashboard')"  :active="request()->routeIs('auth.dashboard')">
+                                    {{ __('User') }}
+                                </x-nav-link>
+                            @else
+                                <x-nav-link :href="route('auth.dashboard')"  >
+                                    {{ __('User') }}
+                                </x-nav-link>
+                            @endif
+
+                                @break;
+                            @endswitch
+
+                            @endforeach
+
                 </div>
             </div>
 
@@ -84,9 +113,15 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+            @if(Route::has('dashboard'))
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @else
+                <x-responsive-nav-link :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                @endif
         </div>
 
         <!-- Responsive Settings Options -->
