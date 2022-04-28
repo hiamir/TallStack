@@ -6,12 +6,11 @@
             <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-0 sm:flex pt-2">
                     @foreach(auth()->user()->roles as $role)
-
                         @switch($role->name)
                             @case('admin')
                             <x-nav-link
-                                wire:click="change_role('{{$role->name}}')"
-{{--                                :href="route('auth.admin.dashboard')"--}}
+                                wire:click="$emit('active_role','{{$role->name}}')"
+                                {{--                                :href="route('auth.admin.dashboard')"--}}
                                 :active="request()->routeIs('auth.admin.dashboard')">
                                 {{ __('Administrator') }}
                             </x-nav-link>
@@ -20,15 +19,15 @@
                             @case('manager')
                             @if($active_role=='manager')
                                 <x-nav-link
-                                    wire:click="change_role('{{$role->name}}')"
+                                    wire:click="$emit('active_role','{{$role->name}}')"
                                     {{--                                    :href="route('auth.dashboard')"--}}
-                                    :active="request()->routeIs('auth.dashboard')">
+                                    :active="$active_role=='manager'">
                                     {{ __('Manager') }}
                                 </x-nav-link>
                             @else
                                 <x-nav-link
-                                    wire:click="change_role('{{$role->name}}')"
-{{--                                    :href="route('auth.dashboard')"--}}
+                                    wire:click="$emit('active_role','{{$role->name}}')"
+                                    {{--                                    :href="route('auth.dashboard')"--}}
                                 >
                                     {{ __('Manager') }}
                                 </x-nav-link>
@@ -39,15 +38,15 @@
                             @case('user')
                             @if($active_role=='user')
                                 <x-nav-link
-                                    wire:click="change_role('{{$role->name}}')"
+                                    wire:click="$emit('active_role','{{$role->name}}')"
                                     {{--                                    :href="route('auth.dashboard')"--}}
-                                    :active="request()->routeIs('auth.dashboard')">
+                                    :active="$active_role=='user'">
                                     {{ __('User') }}
                                 </x-nav-link>
                             @else
                                 <x-nav-link
-                                    wire:click="change_role('{{$role->name}}')"
-{{--                                    :href="route('auth.dashboard')"--}}
+                                    wire:click="$emit('active_role','{{$role->name}}')"
+                                    {{--                                    :href="route('auth.dashboard')"--}}
                                 >
                                     {{ __('User') }}
                                 </x-nav-link>
@@ -55,7 +54,6 @@
 
                             @break;
                         @endswitch
-
                     @endforeach
 
                 </div>
@@ -160,4 +158,3 @@
         </div>
     </div>
 </nav>
-
